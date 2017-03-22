@@ -29,10 +29,10 @@ public class TestingCezar {
     
     public void action(){
         if(encrypt){
-            new MehtodSezar().encrypt(from, to, key);
+            new MehtodSezar().encrypt(from, to, key, null);
             System.out.println("work is done (e)");
         } else if(decrypt){
-            new MehtodSezar().decrypt(from, to, key);
+            new MehtodSezar().decrypt(from, to, key, null);
             System.out.println("work is done (d)");
         } else{
         	System.out.println("nothing to do");

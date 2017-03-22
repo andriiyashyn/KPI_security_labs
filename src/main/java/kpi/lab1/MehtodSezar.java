@@ -12,7 +12,7 @@ public class MehtodSezar extends SymbolicAlgorithm {
 
 
     @Override
-    public void encrypt(String from, String to, int key) {
+    public void encrypt(String from, String to, int key, String text) {
         BufferedReader in = null;
         BufferedWriter out = null;
 
@@ -49,7 +49,7 @@ public class MehtodSezar extends SymbolicAlgorithm {
     }
 
     @Override
-    public void decrypt(String from, String to, int key) {
+    public void decrypt(String from, String to, int key, String text) {
         BufferedReader in = null;
         BufferedWriter out = null;
 
