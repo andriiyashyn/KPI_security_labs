@@ -12,51 +12,51 @@ import java.io.IOException;
 public class MethodTritemium extends SymbolicAlgorithm {
 
     private int a, b, c;
-    private String gaslo;
+    private String word;
 
-    public MethodTritemium(int a, int b, int c, String gaslo) {
+    public MethodTritemium(int a, int b, int c, String word) {
         this.a = a;
         this.b = b;
         this.c = c;
-        this.gaslo = gaslo;
+        this.word = word;
     }
 
     @Override
     public void encrypt(String from, String to, int key, String text) {
-        if(gaslo == null) {
+        if(word == null) {
             if (text == null) {
-                processData(from, to, true);
+                workOnFile(from, to, true);
             } else {
-                processText(text, true);
+                workOnSystemInput(text, true);
             }
         } else {
             if (text == null) {
-                processDataGaslo(from, to, true);
+                workOnFileWithWord(from, to, true);
             } else {
-                processTextGaslo(text, true);
+                workOnSystemInputWithWord(text, true);
             }
         }
     }
 
     @Override
     public void decrypt(String from, String to, int key, String text) {
-        if(gaslo == null) {
+        if(word == null) {
             if (text == null) {
-                processData(from, to, false);
+                workOnFile(from, to, false);
             } else {
-                processText(text, false);
+                workOnSystemInput(text, false);
             }
         } else {
             if (text == null) {
-                processDataGaslo(from, to, false);
+                workOnFileWithWord(from, to, false);
             } else {
-                processTextGaslo(text, false);
+                workOnSystemInputWithWord(text, false);
             }
         }
     }
 
-    private void processData(String from, String to,  boolean encrypt){
-        int N = alphabet.size() - 1;
+    private void workOnFile(String from, String to, boolean encrypt){
+        int totalCount = characters.size() - 1;
 
         try(BufferedReader in = new BufferedReader(new FileReader(from))){
             String string;
@@ -68,27 +68,27 @@ public class MethodTritemium extends SymbolicAlgorithm {
                 StringBuilder sb = new StringBuilder();
 
                 for(Character symbol: symbols) {
+                    int keyValue = (a * t*t) + (b * t) + c;
+                    int index = 0;
 
                     if(encrypt){
-                        int m = alphabet.indexOf(symbol);
-                        int k = (a * t*t) + (b * t) + c;
-                        int L = (m+k) % N;
-
-                        sb.append(alphabet.get(L));
-                    } else {
-                        int L = alphabet.indexOf(symbol);
-                        int k = (a * t* t) + (b * t) + c;
-
-                        int temp = L-k;
-
-                        while (temp < 0){
-                            temp += N;
-                        }
-
-                        int m = (temp) % N;
-
-                        sb.append(alphabet.get(Math.abs(m)));
+                        int indexOfEncrypt = characters.indexOf(symbol);
+                        int indexOfDecrypt = (indexOfEncrypt+keyValue) % totalCount;
+                        index = indexOfDecrypt;
                     }
+                    else {
+                        int indexOfDecrypt = characters.indexOf(symbol);
+                        int temp = indexOfDecrypt-keyValue;
+                        while (temp < 0){
+                            temp += totalCount;
+                        }
+                        int indexOFEncrypt = (temp) % totalCount;
+                        index = indexOFEncrypt;
+
+                    }
+
+                    sb.append(characters.get(Math.abs(index)));
+
 
                     ++t;
                 }
@@ -100,39 +100,35 @@ public class MethodTritemium extends SymbolicAlgorithm {
         }
     }
 
-    private void processText(String text, boolean encrypt){
+    private void workOnSystemInput(String text, boolean encrypt){
         StringBuilder sb = new StringBuilder();
         char[] textInChar = text.toCharArray();
-        int N = alphabet.size() - 1;
+        int totalCount = characters.size() - 1;
         int t = 0;
 
         for(int i = 0; i < textInChar.length; i++){
 
+            int index = 0;
+            int keyValue = (a * t * t)
+                    + (b * t)
+                    + c;
             if(encrypt){
-                int m = alphabet.indexOf(textInChar[i]);
-                int k = (a * t * t)
-                        + (b * t)
-                        + c;
-                int L = (m+k) % N;
+                int indexOfEncrypt = characters.indexOf(textInChar[i]);
+                int indexOfDecrypt = (indexOfEncrypt+keyValue) % totalCount;
 
-                sb.append(alphabet.get(L));
+                index = indexOfDecrypt;
             } else{
-                int L = alphabet.indexOf(textInChar[i]);
-                int k = (a * t * t)
-                        + (b * t)
-                        + c;
-
-                int temp = L-k;
+                int indexOfDecrypt = characters.indexOf(textInChar[i]);
+                int temp = indexOfDecrypt-keyValue;
 
                 while (temp < 0){
-                    temp += N;
+                    temp += totalCount;
                 }
-
-                int m = (temp) % N;
-
-                sb.append(alphabet.get(m));
+                int indexOfEncrypt = (temp) % totalCount;
+                index = indexOfEncrypt;
             }
 
+            sb.append(characters.get(index));
             ++t;
         }
 
@@ -140,12 +136,12 @@ public class MethodTritemium extends SymbolicAlgorithm {
 
     }
 
-    private void processDataGaslo(String from, String to, boolean encrypt){
+    private void workOnFileWithWord(String from, String to, boolean encrypt){
         try(BufferedReader in = new BufferedReader(new FileReader(from))){
             StringBuilder sb = new StringBuilder();
             String string;
             int t = 0;
-            char[] gasloArray = gaslo.toCharArray();
+            char[] gasloArray = word.toCharArray();
 
             while ((string = in.readLine()) != null){
 
@@ -161,9 +157,9 @@ public class MethodTritemium extends SymbolicAlgorithm {
         }
     }
 
-    private void processTextGaslo(String text, boolean encrypt){
+    private void workOnSystemInputWithWord(String text, boolean encrypt){
         char[] textArray = text.toCharArray();
-        char[] gasloArray = gaslo.toCharArray();
+        char[] gasloArray = word.toCharArray();
         int t = 0;
         StringBuilder sb = new StringBuilder();
 
@@ -176,18 +172,18 @@ public class MethodTritemium extends SymbolicAlgorithm {
 
             if (encrypt){
                 int temp = t % gasloArray.length;
-                index = + alphabet.indexOf(symbol) + alphabet.indexOf(gasloArray[temp]);
+                index = + characters.indexOf(symbol) + characters.indexOf(gasloArray[temp]);
             } else {
                 int temp = t % gasloArray.length;
-                index = alphabet.indexOf(symbol) - alphabet.indexOf(gasloArray[temp]);
+                index = characters.indexOf(symbol) - characters.indexOf(gasloArray[temp]);
 
                 while (index < 0){
-                    index += alphabet.size()-1;
+                    index += characters.size()-1;
                 }
             }
 
             ++t;
-            sb.append(alphabet.get(index%(alphabet.size()-1)));
+            sb.append(characters.get(index%(characters.size()-1)));
         }
 
         return sb.toString();

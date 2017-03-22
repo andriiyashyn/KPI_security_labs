@@ -8,7 +8,7 @@ import java.io.*;
 /**
  * Created by andrew_yashin on 2/23/17.
  */
-public class MehtodSezar extends SymbolicAlgorithm {
+public class MehtodCezar extends SymbolicAlgorithm {
 
 
     @Override

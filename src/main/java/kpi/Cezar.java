@@ -2,9 +2,9 @@ package kpi;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import kpi.lab1.MehtodSezar;
+import kpi.lab1.MehtodCezar;
 
-public class TestingCezar {
+public class Cezar {
     @Parameter(names = {"-k"}, required = true)
     private int key;
 
@@ -22,17 +22,17 @@ public class TestingCezar {
     private String to;
 
     public static void main(String[] args) {
-        TestingCezar testingCezar = new TestingCezar();
-        new JCommander(testingCezar, args);
-        testingCezar.action();
+        Cezar cezar = new Cezar();
+        new JCommander(cezar, args);
+        cezar.action();
     }
     
     public void action(){
         if(encrypt){
-            new MehtodSezar().encrypt(from, to, key, null);
+            new MehtodCezar().encrypt(from, to, key, null);
             System.out.println("work is done (e)");
         } else if(decrypt){
-            new MehtodSezar().decrypt(from, to, key, null);
+            new MehtodCezar().decrypt(from, to, key, null);
             System.out.println("work is done (d)");
         } else{
         	System.out.println("nothing to do");

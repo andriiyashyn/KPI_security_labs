@@ -9,18 +9,18 @@ import kpi.lab2.MethodTritemium;
 /**
  * Created by andrew_yashin on 3/20/17.
  */
-public class TestingTritemium {
+public class Tritemium {
 
-    @Parameter(names = {"-e"})
+    @Parameter(names = {"-e", "-encrypt"})
     private boolean encrypt = false;
 
-    @Parameter(names = {"-d"})
+    @Parameter(names = {"-d", "-decrypt"})
     private boolean decrypt = false;
 
-    @Parameter(names = {"-f"})
+    @Parameter(names = {"-f", "-from"})
     private String from;
 
-    @Parameter(names = {"-t"})
+    @Parameter(names = {"-t", "-to"})
     private String to;
 
     @Parameter(names = {"-b"})
@@ -35,15 +35,15 @@ public class TestingTritemium {
     @Parameter(names = {"-text"})
     private String text;
 
-    @Parameter(names = {"-g"})
-    private String gaslo;
+    @Parameter(names = {"-w", "-word"})
+    private String word;
 
 
-    @Parameter(names = {"-rus"})
-    private boolean rus = false;
+    @Parameter(names = {"-russian"})
+    private boolean russian = false;
 
     public static void main(String[] args) {
-        TestingTritemium test = new TestingTritemium();
+        Tritemium test = new Tritemium();
 
         try {
             new JCommander(test, args);
@@ -56,17 +56,17 @@ public class TestingTritemium {
 
     public void action(){
 
-        if(rus){
+        if(russian){
             SymbolicAlgorithm.initAlphabet(false);
         } else {
             SymbolicAlgorithm.initAlphabet(true);
         }
 
         if(encrypt){
-            new MethodTritemium(a, b, c, gaslo).encrypt(from, to, 0, text);
+            new MethodTritemium(a, b, c, word).encrypt(from, to, 0, text);
             System.out.println("work is done (e)");
         } else if(decrypt){
-            new MethodTritemium(a, b, c, gaslo).decrypt(from, to, 0, text);
+            new MethodTritemium(a, b, c, word).decrypt(from, to, 0, text);
             System.out.println("work is done (d)");
         } else{
             System.out.println("nothing to do");
