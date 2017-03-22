@@ -48,7 +48,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>kpi.lab1.Main</mainClass>
+              <mainClass>kpi.TestingTritemium</mainClass>
             </manifest>
           </archive>
         </configuration>

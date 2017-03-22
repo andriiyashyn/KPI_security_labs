@@ -1,5 +1,8 @@
 package kpi.lab1;
 
+
+import kpi.abstr.SymbolicAlgorithm;
+
 import java.io.*;
 
 /**
@@ -7,8 +10,9 @@ import java.io.*;
  */
 public class MehtodSezar extends SymbolicAlgorithm {
 
+
     @Override
-    public boolean encrypt(String from, String to, int key) {
+    public void encrypt(String from, String to, int key) {
         BufferedReader in = null;
         BufferedWriter out = null;
 
@@ -42,12 +46,10 @@ public class MehtodSezar extends SymbolicAlgorithm {
                 e.printStackTrace();
             }
         }
-
-        return true;
     }
 
     @Override
-    public boolean decrypt(String from, String to, int key) {
+    public void decrypt(String from, String to, int key) {
         BufferedReader in = null;
         BufferedWriter out = null;
 
@@ -82,7 +84,6 @@ public class MehtodSezar extends SymbolicAlgorithm {
             }
         }
 
-        return true;
     }
 
 
