@@ -1,9 +1,10 @@
-package kpi.lab1;
+package kpi;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import kpi.lab1.MehtodSezar;
 
-public class Main {
+public class TestingCezar {
     @Parameter(names = {"-k"}, required = true)
     private int key;
 
@@ -21,9 +22,9 @@ public class Main {
     private String to;
 
     public static void main(String[] args) {
-        Main main = new Main();
-        new JCommander(main, args);
-        main.action();
+        TestingCezar testingCezar = new TestingCezar();
+        new JCommander(testingCezar, args);
+        testingCezar.action();
     }
     
     public void action(){
