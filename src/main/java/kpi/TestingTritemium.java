@@ -3,6 +3,7 @@ package kpi;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import kpi.abstr.SymbolicAlgorithm;
 import kpi.lab2.MethodTritemium;
 
 /**
@@ -16,20 +17,30 @@ public class TestingTritemium {
     @Parameter(names = {"-d"})
     private boolean decrypt = false;
 
-    @Parameter(names = {"-f"}, required = true)
+    @Parameter(names = {"-f"})
     private String from;
 
-    @Parameter(names = {"-t"}, required = true)
+    @Parameter(names = {"-t"})
     private String to;
 
-    @Parameter(names = {"-c1"}, required = true)
-    private int c1;
+    @Parameter(names = {"-b"})
+    private int b = 0;
 
-    @Parameter(names = {"-c0"}, required = true)
-    private int c0;
+    @Parameter(names = {"-c"})
+    private int c = 0;
 
-    @Parameter(names = {"-c2"})
-    private int c2 = 0;
+    @Parameter(names = {"-a"})
+    private int a = 0;
+
+    @Parameter(names = {"-text"})
+    private String text;
+
+    @Parameter(names = {"-g"})
+    private String gaslo;
+
+
+    @Parameter(names = {"-rus"})
+    private boolean rus = false;
 
     public static void main(String[] args) {
         TestingTritemium test = new TestingTritemium();
@@ -38,20 +49,24 @@ public class TestingTritemium {
             new JCommander(test, args);
             test.action();
         } catch (ParameterException e){
-            System.err.println("Input all required arguments \n" +
-                    " -f - from File\n" +
-                    " -t - to File\n" +
-                    " -c0, -c1, ( -c2 - not required ) - arguments\n");
+            System.err.println("Try again");
         }
 
     }
 
     public void action(){
+
+        if(rus){
+            SymbolicAlgorithm.initAlphabet(false);
+        } else {
+            SymbolicAlgorithm.initAlphabet(true);
+        }
+
         if(encrypt){
-            new MethodTritemium(c2, c1, c0).encrypt(from, to, 0);
+            new MethodTritemium(a, b, c, gaslo).encrypt(from, to, 0, text);
             System.out.println("work is done (e)");
         } else if(decrypt){
-            new MethodTritemium(c2, c1, c0).decrypt(from, to, 0);
+            new MethodTritemium(a, b, c, gaslo).decrypt(from, to, 0, text);
             System.out.println("work is done (d)");
         } else{
             System.out.println("nothing to do");
