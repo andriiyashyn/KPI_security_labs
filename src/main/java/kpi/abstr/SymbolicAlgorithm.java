@@ -13,30 +13,11 @@ import java.util.LinkedList;
 public abstract class SymbolicAlgorithm {
     public static LinkedList<Character> alphabet;
 
-    public static void initAlphabet(boolean eng){
+    public static void initAlphabet(){
         alphabet = new LinkedList<>();
-        if(eng){
-            for (int i = 32; i < 127; i++){
-                alphabet.add((char)i);
-            }
-        } else {
-            for (int i = 32; i < 65; i++) {
-                alphabet.add((char)i);
-            }
 
-            for (int i = 91; i < 97; i++){
-                alphabet.add((char)i);
-            }
-
-            for (int i = 123; i < 128; i++){
-                alphabet.add((char)i);
-            }
-
-            for (char i = 'А'; i < 'я'; i++){
-                alphabet.add(i);
-            }
-
-            alphabet.addAll(Arrays.asList('ї', 'Ї', 'ю', 'є', 'Ю', 'Є', 'і','І'));
+        for (int i = 32; i < 127; i++) {
+            alphabet.add((char) i);
         }
     }
 
