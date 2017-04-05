@@ -57,9 +57,9 @@ public class Tritemium {
     public void action(){
 
         if(russian){
-            SymbolicAlgorithm.initAlphabet(false);
+            SymbolicAlgorithm.initAlphabet();
         } else {
-            SymbolicAlgorithm.initAlphabet(true);
+            SymbolicAlgorithm.initAlphabet();
         }
 
         if(encrypt){

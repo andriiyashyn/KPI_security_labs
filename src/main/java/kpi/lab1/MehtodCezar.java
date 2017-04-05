@@ -29,8 +29,8 @@ public class MehtodCezar extends SymbolicAlgorithm {
                 StringBuilder sb = new StringBuilder();
 
                 for(Character symbol: symbols){
-                    char newChar = getCharFromAlhabet(symbol, key, true);
-                    sb.append(newChar);
+                    //char newChar = getCharFromAlhabet(symbol, key, true);
+                    //sb.append(newChar);
                 }
 
                 out.write(sb.toString() + "\n");
@@ -66,8 +66,8 @@ public class MehtodCezar extends SymbolicAlgorithm {
                 StringBuilder sb = new StringBuilder();
 
                 for(Character symbol: symbols){
-                    char newChar = getCharFromAlhabet(symbol, key, false);
-                    sb.append(newChar);
+//                    char newChar = getCharFromAlhabet(symbol, key, false);
+//                    sb.append(newChar);
                 }
 
                 out.write(sb.toString() + "\n");
