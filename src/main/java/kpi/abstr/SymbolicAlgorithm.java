@@ -3,9 +3,7 @@ package kpi.abstr;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Created by andrew_yashin on 2/23/17.
@@ -14,11 +12,17 @@ public abstract class SymbolicAlgorithm {
     public static LinkedList<Character> alphabet;
 
     public static void initAlphabet(){
-        alphabet = new LinkedList<>();
-
+        Set<Character> set = new HashSet<>();
         for (int i = 32; i < 127; i++) {
-            alphabet.add((char) i);
+            set.add((char) i);
         }
+
+        for (char i = 'А'; i <= 'я'; i++) {
+            set.add(i);
+        }
+        set.addAll(Arrays.asList('ї', 'Ї', 'ю', 'є', 'Ю', 'Є', 'і', 'І', 'ё', 'Ё'));
+
+        alphabet = new LinkedList<>(set);
     }
 
     public abstract void encrypt(String from, String to, int key, String text);
