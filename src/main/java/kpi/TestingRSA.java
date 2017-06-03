@@ -4,14 +4,12 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import kpi.abstr.SymbolicAlgorithm;
-import kpi.lab5.MethodDES;
+import kpi.lab3.MethodGamma;
+import kpi.lab6.MethodRSA;
 
-public class TestingDES {
+public class TestingRSA {
     @Parameter(names = {"-e"})
     private boolean encrypt = false;
-
-    @Parameter(names = {"-k"})
-    private int key = 20;
 
     @Parameter(names = {"-d"})
     private boolean decrypt = false;
@@ -25,9 +23,12 @@ public class TestingDES {
     @Parameter(names = {"-text"})
     private String text;
 
+    @Parameter(names = {"-generate"})
+    private boolean generate = false;
+
 
     public static void main(String[] args) {
-        TestingDES test = new TestingDES();
+        TestingRSA test = new TestingRSA();
 
         try {
             new JCommander(test, args);
@@ -40,14 +41,18 @@ public class TestingDES {
 
     private void action(){
         SymbolicAlgorithm.initAlphabet();
-        if(encrypt){
-            new MethodDES().encrypt(from, to, key, text);
-            System.out.println("work is done (e)");
-        } else if(decrypt){
-            new MethodDES().decrypt(from, to, key, text);
-            System.out.println("work is done (d)");
-        } else{
-            System.out.println("nothing to do");
+        MethodRSA rsa = new MethodRSA();
+        if(generate){
+            rsa.generateKeyFiles();
+        } else {
+
+            if (encrypt) {
+                rsa.encrypt(from, to);
+                System.out.println("done e");
+            } else {
+                rsa.decrypt(from, to);
+                System.out.println("done d");
+            }
         }
     }
 }
